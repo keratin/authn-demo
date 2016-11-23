@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/sequel'
+require 'keratin/authn'
 
 set :database, 'sqlite://facepage.db'
 
@@ -10,6 +11,14 @@ migration "create users table" do
 
     index :email, unique: true
   end
+end
+
+Keratin::AuthN.config.tap do |config|
+  # The base URL of your Keratin AuthN service
+  config.issuer = "https://keratin-authn-demo.herokuapp.com"
+
+  # The domain of your application
+  config.audience = 'localhost'
 end
 
 class User < Sequel::Model
