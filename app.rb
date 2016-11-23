@@ -36,3 +36,7 @@ get '/' do
     redirect to('/signup')
   end
 end
+
+get '/signup' do
+  erb :signup
+end
