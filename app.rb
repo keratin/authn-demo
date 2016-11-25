@@ -7,8 +7,10 @@ set :database, 'sqlite://facepage.db'
 migration "create users table" do
   database.create_table :users do
     primary_key :id
+    integer     :account_id
     string      :email
 
+    index :account_id, unique: true
     index :email, unique: true
   end
 end
@@ -26,11 +28,15 @@ end
 
 helpers do
   def logged_in?
-    !! current_user
+    !! current_account_id
   end
 
   def current_user
-    @current_user ||= User[id: nil]
+    @current_user ||= User[account_id: current_account_id]
+  end
+
+  def current_account_id
+    Keratin::AuthN.subject_from(request.cookies['authn'])
   end
 
   def gravatar_url(email, size: 200)
@@ -48,4 +54,16 @@ end
 
 get '/signup' do
   erb :signup
+end
+
+post '/signup' do
+  if logged_in?
+    user = User.create(
+      email: params[:user][:email],
+      account_id: current_account_id
+    )
+    redirect to('/')
+  else
+    erb :signup
+  end
 end
