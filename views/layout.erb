@@ -7,6 +7,14 @@
   <div class="container">
     <nav class="navbar navbar-dark mb-2" style="background-color: #ef07a7;">
       <a href="/" class="navbar-brand">FacePage</a>
+
+      <ul class="nav navbar-nav float-xs-right">
+        <% if logged_in? %>
+          <li class="nav-item">
+            <a class="btn btn-info" href="#" id="logout">Log Out</a>
+          </li>
+        <% end %>
+      </ul>
     </nav>
     <%= yield %>
   </div>

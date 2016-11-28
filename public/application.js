@@ -35,4 +35,17 @@
     })
 
   }
+
+  /*
+   * Integrate KeratinAuthN.logout
+   */
+  var logoutLink = document.querySelector("a#logout");
+  if (logoutLink) {
+    logoutLink.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      KeratinAuthN.logout()
+        .then(function () { window.location.href = '/'; });
+    })
+  }
 })();
