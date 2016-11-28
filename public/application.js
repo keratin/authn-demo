@@ -48,4 +48,35 @@
         .then(function () { window.location.href = '/'; });
     })
   }
+
+  /*
+   * Integrate KeratinAuthN.login
+   */
+  var loginForm = document.querySelector("form#login");
+  if (loginForm) {
+    var username = loginForm.querySelector("input#user_email");
+    var password = loginForm.querySelector("input#user_password");
+
+    loginForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      loginForm.querySelectorAll(".has-danger").forEach(function(e) {
+        e.classList.remove('has-danger');
+      });
+
+      function goHome() {
+        window.location.href = '/';
+      }
+
+      function showErrors() {
+        username.parentNode.classList.add("has-danger");
+        password.parentNode.classList.add("has-danger");
+      }
+
+      KeratinAuthN
+        .login({ username: username.value, password: password.value })
+        .then(goHome, showErrors);
+    })
+
+  }
 })();
