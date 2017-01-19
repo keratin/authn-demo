@@ -19,6 +19,11 @@ Keratin::AuthN.config.tap do |config|
   config.audience = ENV['APPLICATION_DOMAIN']
 end
 
+MG = Mailgun::Client.new(ENV['MAILGUN_API_KEY'])
+def mail(data)
+  MG.send_message(ENV['MAILGUN_DOMAIN'], data)
+end
+
 class User < Sequel::Model
 end
 

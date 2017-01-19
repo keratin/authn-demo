@@ -20,6 +20,7 @@ GEM
       json-jwt
       lru_redux
     lru_redux (1.1.0)
+    mailgun (0.11)
     minitest (5.10.3)
     puma (3.7.0)
     rack (1.6.5)
@@ -47,6 +48,7 @@ PLATFORMS
 DEPENDENCIES
   dotenv
   keratin-authn
+  mailgun
   puma
   sinatra
   sinatra-sequel
