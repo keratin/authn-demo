@@ -1,0 +1,12 @@
+<h2>Reset Password</h2>
+
+<form id="reset">
+  <input type="hidden" id="reset_token" value="<%= @token %>" />
+
+  <div class="form-group">
+    <label for="user_password" class="form-control-label">New Password</label>
+    <input type="password" id="user_password" class="form-control" />
+  </div>
+
+  <button type="submit" class="btn btn-primary">Reset</button>
+</form>

@@ -1,4 +1,13 @@
 (function() {
+  document.querySelectorAll("*[data-toggle=collapse]")
+    .forEach(function (e) {
+      var target = document.querySelector(e.attributes.href.value);
+      e.addEventListener('click', function (event) {
+        e.classList.add('collapse');
+        target.classList.remove('collapse');
+      });
+    });
+
   /*
    * Integrate KeratinAuthN.signup
    */
@@ -77,6 +86,54 @@
         .login({ username: username.value, password: password.value })
         .then(goHome, showErrors);
     })
+  }
 
+  /*
+   * Integrate KeratinAuthN.requestPasswordReset
+   */
+  var resetButton = document.querySelector("#resetButton");
+  if (resetButton) {
+    var username = document.querySelector("#user_email");
+
+    resetButton.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      KeratinAuthN
+        .requestPasswordReset(username.value)
+        .then(function () {
+          window.alert('If this account exists, an email has been sent with instructions to reset your password.');
+        });
+    });
+  }
+
+  /*
+   * Password Resets
+   */
+  var resetForm = document.querySelector("form#reset");
+  if (resetForm) {
+    var password = resetForm.querySelector("input#user_password");
+    var token = resetForm.querySelector("input#reset_token");
+
+    function goHome() {
+      window.location.href = '/';
+    }
+
+    function showErrors(errorData) {
+      errorData.forEach(function(data) {
+        if (data.field === "password") {
+          password.parentNode.classList.add("has-danger");
+        } else {
+          window.alert(data.field + ' ' + data.message);
+        }
+      });
+    }
+
+    resetForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      KeratinAuthN
+        .changePassword({password: password.value, token: token.value})
+        .then(goHome, showErrors);
+    });
   }
 })();
