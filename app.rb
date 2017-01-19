@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/sequel'
 require 'keratin/authn'
+require 'dotenv/load'
 
 set :database, 'sqlite://facepage.db'
 
@@ -17,10 +18,10 @@ end
 
 Keratin::AuthN.config.tap do |config|
   # The base URL of your Keratin AuthN service
-  config.issuer = "https://keratin-authn-demo.herokuapp.com"
+  config.issuer = ENV['AUTHN_HOST']
 
   # The domain of your application
-  config.audience = 'localhost'
+  config.audience = ENV['APPLICATION_DOMAIN']
 end
 
 class User < Sequel::Model
