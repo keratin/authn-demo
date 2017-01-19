@@ -5,12 +5,20 @@
   <!-- Email (Username) -->
   <div class="form-group">
     <label for="user_email" class="form-control-label">Email</label>
-    <input type="email" id="user_email" name="user[email]" class="form-control" />
+    <div class="input-group">
+      <input type="email" id="user_email" name="user[email]" class="form-control" />
+      <span class="input-group-btn">
+        <a type="submit" class="btn btn-primary collapse" id="resetButton">Reset Password</a>
+      </span>
+    </div>
   </div>
 
   <!-- Password -->
   <div class="form-group">
-    <label for="user_password" class="form-control-label">Password</label>
+    <label for="user_password" class="form-control-label">
+      Password
+      <small><a href="#resetButton" data-toggle="collapse">(Forgot your password?)</a></small>
+    </label>
     <input type="password" id="user_password" class="form-control" />
   </div>
 

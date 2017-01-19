@@ -78,3 +78,33 @@ post '/signup' do
     erb :signup
   end
 end
+
+# webhook from Keratin AuthN
+# normally protected by HTTP Basic Auth over SSL
+post '/password_resets' do
+  if user = User[account_id: params[:account_id]]
+    mail(
+      from: 'Keratin Demo <demo@keratin.tech>',
+      to: user.email,
+      subject: 'Password Reset',
+      html: <<-HTML
+        <body>
+          <p>
+            Forget your password?
+            <a href="#{url("/password_resets?token=#{params[:token]}")}">
+              RESET HERE
+            </a>
+          </p>
+        </body>
+      HTML
+    )
+  end
+
+  200
+end
+
+# email landing page
+get '/password_resets' do
+  @token = params[:token]
+  erb :reset
+end
