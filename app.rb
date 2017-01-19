@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/sequel'
 require 'keratin/authn'
 require 'dotenv/load'
+require 'mailgun'
 
 set :database, 'sqlite://facepage.db'
 
@@ -22,6 +23,11 @@ Keratin::AuthN.config.tap do |config|
 
   # The domain of your application
   config.audience = ENV['APPLICATION_DOMAIN']
+end
+
+MG = Mailgun::Client.new(ENV['MAILGUN_API_KEY'])
+def mail(data)
+  MG.send_message(ENV['MAILGUN_DOMAIN'], data)
 end
 
 class User < Sequel::Model
