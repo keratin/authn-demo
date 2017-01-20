@@ -136,4 +136,37 @@
         .then(goHome, showErrors);
     });
   }
+
+  /*
+   * Password Updates
+   */
+  var changeForm = document.querySelector("form#changePassword");
+  if (changeForm) {
+    var currentPassword = changeForm.querySelector("input#current_password");
+    var password = changeForm.querySelector("input#new_password");
+
+    function resetFormAndCongratulate() {
+      password.value = '';
+      currentPassword.value = '';
+      window.alert("Your password has been updated");
+    }
+
+    function showErrors(errorData) {
+      errorData.forEach(function(data) {
+        if (data.field === "password") {
+          password.parentNode.classList.add("has-danger");
+        } else {
+          window.alert(data.field + ' ' + data.message);
+        }
+      });
+    }
+
+    changeForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      KeratinAuthN
+        .changePassword({password: password.value, currentPassword: currentPassword.value})
+        .then(resetFormAndCongratulate, showErrors);
+    })
+  }
 })();

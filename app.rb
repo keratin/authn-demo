@@ -73,6 +73,14 @@ post '/signup' do
   end
 end
 
+get '/account' do
+  if logged_in?
+    erb :account
+  else
+    redirect to('/signup')
+  end
+end
+
 # webhook from Keratin AuthN
 # normally protected by HTTP Basic Auth over SSL
 post '/password_resets' do
