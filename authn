@@ -1,0 +1,16 @@
+#!/bin/bash
+
+export $(cat .env | grep -v '^#' | xargs)
+
+docker run -it --rm \
+  --publish ${AUTHN_HOST##*:}:3000 \
+  -v `pwd`:/app/db \
+  -e DATABASE_URL=sqlite3://local/db/auth \
+  -e AUTHN_URL=$AUTHN_HOST \
+  -e APP_DOMAINS=$APPLICATION_DOMAIN \
+  -e SECRET_KEY_BASE \
+  -e HTTP_AUTH_USERNAME \
+  -e HTTP_AUTH_PASSWORD \
+  --name authn_demo \
+  keratin/authn-server:latest \
+  sh -c "./authn migrate && ./authn server"
