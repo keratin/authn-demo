@@ -9,7 +9,7 @@
       <a href="/" class="navbar-brand">FacePage</a>
 
       <ul class="nav navbar-nav float-xs-right">
-        <% if logged_in? %>
+        <% if current_user %>
           <li class="nav-item">
             <a class="btn btn-info" href="/account">Manage Account</a>
           </li>
@@ -31,7 +31,11 @@
   <script>
     KeratinAuthN.setHost("<%= Keratin::AuthN.config.issuer %>");
     KeratinAuthN.setCookieStore('facepage');
+    <% if incomplete_signup? %>
+    KeratinAuthN.logout();
+    <% else %>
     KeratinAuthN.restoreSession().catch(console.log);
+    <% end %>
   </script>
   <script src="application.js"></script>
 </body>

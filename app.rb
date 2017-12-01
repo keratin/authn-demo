@@ -18,6 +18,10 @@ Keratin::AuthN.config.tap do |config|
 
   # The domain of your application
   config.audience = ENV['APPLICATION_DOMAIN']
+
+  # client credentials
+  config.username = ENV['HTTP_AUTH_USERNAME']
+  config.password = ENV['HTTP_AUTH_PASSWORD']
 end
 
 MG = Mailgun::Client.new(ENV['MAILGUN_API_KEY'])
@@ -44,6 +48,10 @@ helpers do
   def gravatar_url(email, size: 200)
     "https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email.downcase.strip)}?size=#{size}"
   end
+
+  def incomplete_signup?
+    current_account_id && !current_user
+  end
 end
 
 get '/' do
@@ -59,6 +67,9 @@ get '/login' do
 end
 
 get '/signup' do
+  if incomplete_signup?
+    Keratin.authn.archive(current_account_id) # cleanup
+  end
   erb :signup
 end
 
@@ -72,6 +83,7 @@ post '/signup' do
   @errors << :name unless @name.length.between?(3, 50)
   @errors << :email unless @email =~ /\A[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\z/i
   if @errors.any?
+    Keratin.authn.archive(current_account_id) # cleanup
     return erb :signup
   end
 
