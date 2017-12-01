@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'puma'
+group :development do
+  gem 'puma'
+end
+
 gem 'sqlite3'
 gem 'sinatra', require: 'sinatra'
 gem 'sinatra-sequel'
