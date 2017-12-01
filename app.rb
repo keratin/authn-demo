@@ -37,7 +37,7 @@ helpers do
   end
 
   def current_account_id
-    Keratin::AuthN.subject_from(request.cookies['authn'])
+    Keratin::AuthN.subject_from(request.cookies['facepage'])
   end
 
   def gravatar_url(email, size: 200)
