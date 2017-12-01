@@ -2,10 +2,16 @@
 
 <form id="signup" method="post" action="/signup">
 
+  <!-- Name -->
+  <div class="form-group <%= 'has-danger' if @errors && @errors.include?(:name) %>">
+    <label for="user_name" class="form-control-label">Name</label>
+    <input type="text" value="<%= @name %>" id="user_name" name="user[name]" class="form-control" />
+  </div>
+
   <!-- Email (Username) -->
-  <div class="form-group">
+  <div class="form-group <%= 'has-danger' if @errors && @errors.include?(:email) %>">
     <label for="user_email" class="form-control-label">Email</label>
-    <input type="email" id="user_email" name="user[email]" class="form-control" />
+    <input type="email" value="<%= @email %>" id="user_email" name="user[email]" class="form-control" />
   </div>
 
   <!-- Password -->

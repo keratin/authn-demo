@@ -4,6 +4,7 @@ migration "create users table" do
   database.create_table :users do
     primary_key :id
     integer     :account_id
+    string      :name
     string      :email
 
     index :account_id, unique: true
@@ -62,15 +63,24 @@ get '/signup' do
 end
 
 post '/signup' do
-  if logged_in?
-    user = User.create(
-      email: params[:user][:email],
-      account_id: current_account_id
-    )
-    redirect to('/')
-  else
-    erb :signup
+  redirect to('/') unless logged_in?
+
+  @name = params[:user][:name].to_s
+  @email = params[:user][:email].to_s
+
+  @errors = []
+  @errors << :name unless @name.length.between?(3, 50)
+  @errors << :email unless @email =~ /\A[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\z/i
+  if @errors.any?
+    return erb :signup
   end
+
+  User.create(
+    name: @name,
+    email: @email,
+    account_id: current_account_id
+  )
+  redirect to('/')
 end
 
 get '/account' do
