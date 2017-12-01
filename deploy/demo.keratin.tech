@@ -1,0 +1,10 @@
+# /etc/nginx/sites-enabled/demo.keratin.tech
+server {
+    listen 80;
+    server_name demo.keratin.tech;
+
+    root /home/ubuntu/authn-demo/public;
+
+    passenger_enabled on;
+    passenger_ruby /usr/bin/ruby;
+}

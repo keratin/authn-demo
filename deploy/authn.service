@@ -1,0 +1,16 @@
+[Unit]
+Description=authn-server
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=~
+EnvironmentFile=/home/ubuntu/authn-demo/.env
+Environment="PORT=3000"
+Environment="DATABASE_URL=sqlite3://local/authn-demo/auth"
+ExecStartPre=/home/ubuntu/bin/authn migrate
+ExecStart=/home/ubuntu/bin/authn
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
