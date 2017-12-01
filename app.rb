@@ -14,10 +14,10 @@ end
 
 Keratin::AuthN.config.tap do |config|
   # The base URL of your Keratin AuthN service
-  config.issuer = ENV['AUTHN_HOST']
+  config.issuer = ENV['AUTHN_URL']
 
   # The domain of your application
-  config.audience = ENV['APPLICATION_DOMAIN']
+  config.audience = ENV['APP_DOMAINS']
 
   # client credentials
   config.username = ENV['HTTP_AUTH_USERNAME']
