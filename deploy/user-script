@@ -61,4 +61,4 @@ sudo certbot -n --agree-tos \
   --nginx \
   --redirect \
   -m lance@keratin.tech \
-  -d demo.keratin.tech,authn.keratin.tech \
+  -d demo.keratin.tech,authn.keratin.tech
