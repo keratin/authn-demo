@@ -70,4 +70,10 @@ server {
       }
     }
 
+    location /jwks {
+      if ($request_method = GET) {
+        return 418;
+      }
+    }
+
 }

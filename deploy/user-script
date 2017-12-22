@@ -39,6 +39,7 @@ sed -i '' -e 's;APP_DOMAINS=;\0demo.keratin.tech:443;' .env
 sed -i '' -e "s;SECRET_KEY_BASE=;\0$(openssl rand -hex 64);" .env
 sed -i '' -e "s;HTTP_AUTH_USERNAME=;\0$(openssl rand -hex 12);" .env
 sed -i '' -e "s;HTTP_AUTH_PASSWORD=;\0$(openssl rand -hex 12);" .env
+echo PRIVATE_AUTHN_URL=localhost:3000 >> .env
 echo SENTRY_DSN= >> .env
 
 # run authn as daemon with systemd
