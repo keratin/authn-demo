@@ -26,6 +26,9 @@ server {
     # whitelist all the public endpoints
 
     location /accounts {
+      if ($request_method = OPTIONS) {
+        return 418;
+      }
       if ($request_method = POST) {
         return 418;
       }
@@ -38,6 +41,9 @@ server {
     }
 
     location /session {
+      if ($request_method = OPTIONS) {
+        return 418;
+      }
       if ($request_method = POST) {
         return 418;
       }
@@ -59,6 +65,9 @@ server {
     }
 
     location /password {
+      if ($request_method = OPTIONS) {
+        return 418;
+      }
       if ($request_method = POST) {
         return 418;
       }
