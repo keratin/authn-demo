@@ -1,5 +1,5 @@
 upstream authn-daemon {
-  server http://127.0.0.1:3000;
+  server 127.0.0.1:3000;
 }
 
 # /etc/nginx/sites-enabled/authn.keratin.tech
