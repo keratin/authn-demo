@@ -1,3 +1,7 @@
+# secrets
+MAILGUN_API_KEY=
+SENTRY_DSN=
+
 # passenger + nginx
 sudo apt-get install -y dirmngr gnupg
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
@@ -41,7 +45,10 @@ sed -i '' -e "s;SECRET_KEY_BASE=;\0$(openssl rand -hex 64);" .env
 sed -i '' -e "s;HTTP_AUTH_USERNAME=;\0$(openssl rand -hex 12);" .env
 sed -i '' -e "s;HTTP_AUTH_PASSWORD=;\0$(openssl rand -hex 12);" .env
 echo PRIVATE_AUTHN_URL=localhost:3000 >> .env
-echo SENTRY_DSN= >> .env
+echo APP_PASSWORD_RESET_URL=https://demo.keratin.tech/password_resets >> .env
+echo MAILGUN_API_KEY=$MAILGUN_API_KEY >> .env
+echo MAILGUN_DOMAIN=mg.keratin.tech >> .env
+echo SENTRY_DSN=$SENTRY_DSN >> .env
 
 # run authn as daemon with systemd
 cd ~
