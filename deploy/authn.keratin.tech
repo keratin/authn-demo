@@ -1,5 +1,5 @@
 upstream authn-daemon {
-  server 127.0.0.1:3000;
+  server 127.0.0.1:3001;
 }
 
 # /etc/nginx/sites-enabled/authn.keratin.tech
@@ -7,13 +7,7 @@ server {
     listen 80;
     server_name authn.keratin.tech;
 
-    # forbid all by default
     location / {
-      deny all;
-    }
-
-    # behavior for allowed locations
-    location @allowed {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header Host $http_host;
@@ -21,68 +15,4 @@ server {
       proxy_pass http://authn-daemon;
       proxy_redirect off;
     }
-    error_page 418 = @allowed;
-
-    # whitelist all the public endpoints
-
-    location /accounts {
-      if ($request_method = OPTIONS) {
-        return 418;
-      }
-      if ($request_method = POST) {
-        return 418;
-      }
-    }
-
-    location /accounts/available {
-      if ($request_method = GET) {
-        return 418;
-      }
-    }
-
-    location /session {
-      if ($request_method = OPTIONS) {
-        return 418;
-      }
-      if ($request_method = POST) {
-        return 418;
-      }
-      if ($request_method = DELETE) {
-        return 418;
-      }
-    }
-
-    location /session/refresh {
-      if ($request_method = GET) {
-        return 418;
-      }
-    }
-
-    location /password/reset {
-      if ($request_method = GET) {
-        return 418;
-      }
-    }
-
-    location /password {
-      if ($request_method = OPTIONS) {
-        return 418;
-      }
-      if ($request_method = POST) {
-        return 418;
-      }
-    }
-
-    location /health {
-      if ($request_method = GET) {
-        return 418;
-      }
-    }
-
-    location /jwks {
-      if ($request_method = GET) {
-        return 418;
-      }
-    }
-
 }

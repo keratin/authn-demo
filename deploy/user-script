@@ -46,6 +46,8 @@ echo APP_PASSWORD_RESET_URL=https://demo.keratin.tech/password_resets >> .env
 echo MAILGUN_API_KEY=$MAILGUN_API_KEY >> .env
 echo MAILGUN_DOMAIN=mg.keratin.tech >> .env
 echo SENTRY_DSN=$SENTRY_DSN >> .env
+echo PROXIED=true >> .env
+echo PUBLIC_PORT=3001 >> .env
 
 ## AUTHN
 
