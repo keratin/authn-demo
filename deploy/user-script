@@ -51,18 +51,10 @@ echo PUBLIC_PORT=3001 >> .env
 
 ## AUTHN
 
-# build authn from source
-add-apt-repository -y ppa:masterminds/glide
-apt-get update
-apt-get install -y golang-1.9 glide
-export GOPATH=~/go
-export PATH=$PATH:$GOPATH/bin:/usr/lib/go-1.9/bin/
-go get github.com/keratin/authn-server
-go get github.com/benbjohnson/ego/cmd/ego
-cd ~/go/src/github.com/keratin/authn-server
-# NOTE: `git checkout v1.0.0` to install a specific version
-make clean build
-mv dist/authn /usr/bin/authn
+# download authn
+curl -L https://github.com/keratin/authn-server/releases/download/v1.2.0/authn-linux64.bz2 \
+  | bunzip2 > /usr/bin/authn
+chmod a+x /usr/bin/authn
 
 # run authn as daemon with systemd
 ln -s $HOME/authn-demo/deploy/authn.service /lib/systemd/system/authn.service
