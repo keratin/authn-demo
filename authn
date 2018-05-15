@@ -12,5 +12,5 @@ docker run -it --rm \
   -e HTTP_AUTH_USERNAME \
   -e HTTP_AUTH_PASSWORD \
   --name authn_demo \
-  keratin/authn-server:1.0.2 \
+  keratin/authn-server:1.3.0 \
   sh -c "./authn migrate && ./authn server"
