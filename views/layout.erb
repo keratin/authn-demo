@@ -18,6 +18,9 @@
           </li>
         <% else %>
           <li class="nav-item">
+            <a class="btn btn-info" href="http://localhost:7001/oauth/google?redirect_uri=http://localhost:9292/register">Google</a>
+          </li>
+          <li class="nav-item">
             <a class="btn btn-success" href="/login">Log In</a>
           </li>
         <% end %>
@@ -27,15 +30,10 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.0.5/es6-promise.auto.min.js"></script>
-  <script src="https://unpkg.com/keratin-authn@0.12.0/dist/keratin-authn.min.js"></script>
+  <%= erb :authn_setup %>
   <script>
-    KeratinAuthN.setHost("<%= Keratin::AuthN.config.issuer %>");
-    KeratinAuthN.setCookieStore('facepage');
-    <% if incomplete_signup? %>
-    KeratinAuthN.logout();
-    <% else %>
-    KeratinAuthN.restoreSession().catch(console.log);
-    <% end %>
+    KeratinAuthN.restoreSession()
+      .catch(console.log);
   </script>
   <script src="application.js"></script>
 </body>

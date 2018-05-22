@@ -34,11 +34,11 @@ end
 
 helpers do
   def logged_in?
-    !! current_account_id
+    !! current_user
   end
 
   def current_user
-    @current_user ||= User[account_id: current_account_id]
+    @current_user ||= current_account_id && User[account_id: current_account_id]
   end
 
   def current_account_id
@@ -68,13 +68,15 @@ end
 
 get '/signup' do
   if incomplete_signup?
-    Keratin.authn.archive(current_account_id) # cleanup
+    account = Keratin.authn.get(current_account_id).result
+    @email = account['username']
   end
+
   erb :signup
 end
 
 post '/signup' do
-  redirect to('/') unless logged_in?
+  redirect to('/') unless incomplete_signup?
 
   @name = params[:user][:name].to_s
   @email = params[:user][:email].to_s
@@ -82,16 +84,15 @@ post '/signup' do
   @errors = []
   @errors << :name unless @name.length.between?(3, 50)
   @errors << :email unless @email =~ /\A[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\z/i
-  if @errors.any?
-    Keratin.authn.archive(current_account_id) # cleanup
-    return erb :signup
-  end
+  return erb :signup if @errors.any?
 
   User.create(
     name: @name,
     email: @email,
     account_id: current_account_id
   )
+  Keratin.authn.update(current_account_id, username: @email)
+
   redirect to('/')
 end
 
@@ -131,4 +132,18 @@ end
 get '/password_resets' do
   @token = params[:token]
   erb :reset
+end
+
+# oauth process return page
+# this could be:
+# * signup
+# * login
+# * connecting identity
+get '/register' do
+  if params[:status] == 'failed'
+    redirect to('/')
+  else
+    # use javascript to import session before redirect
+    erb :register, layout: false
+  end
 end

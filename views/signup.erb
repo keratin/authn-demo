@@ -1,6 +1,6 @@
 <h2>Sign Up</h2>
 
-<form id="signup" method="post" action="/signup">
+<form id="signup" method="post" action="/signup" class="<%= 'incomplete' if incomplete_signup? %>">
 
   <!-- Name -->
   <div class="form-group <%= 'has-danger' if @errors && @errors.include?(:name) %>">
@@ -15,10 +15,12 @@
   </div>
 
   <!-- Password -->
-  <div class="form-group">
-    <label for="user_password" class="form-control-label">Password</label>
-    <input type="password" id="user_password" class="form-control" />
-  </div>
+  <% if !incomplete_signup? %>
+    <div class="form-group">
+      <label for="user_password" class="form-control-label">Password</label>
+      <input type="password" id="user_password" class="form-control" />
+    </div>
+  <% end %>
 
   <button type="submit" class="btn btn-primary">Sign Up</button>
 

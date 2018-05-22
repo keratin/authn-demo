@@ -1,0 +1,5 @@
+<script src="https://unpkg.com/keratin-authn@1.1.0/dist/keratin-authn.min.js"></script>
+<script>
+  KeratinAuthN.setHost("<%= Keratin::AuthN.config.issuer %>");
+  KeratinAuthN.setCookieStore('facepage');
+</script>

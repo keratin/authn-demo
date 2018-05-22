@@ -12,7 +12,7 @@
    * Integrate KeratinAuthN.signup
    */
   var signupForm = document.querySelector("form#signup");
-  if (signupForm) {
+  if (signupForm && !signupForm.classList.contains("incomplete")) {
     var username = signupForm.querySelector("input#user_email");
     var password = signupForm.querySelector("input#user_password");
 
