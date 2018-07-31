@@ -11,6 +11,7 @@ SENTRY_DSN=
 
 # constants
 HOME=/home/ubuntu
+VERSION=1.4.0
 
 ## SINATRA
 
@@ -52,7 +53,7 @@ echo PUBLIC_PORT=3001 >> .env
 ## AUTHN
 
 # download authn
-curl -L https://github.com/keratin/authn-server/releases/download/v1.2.0/authn-linux64.bz2 \
+curl -L https://github.com/keratin/authn-server/releases/download/v$VERSION/authn-linux64.bz2 \
   | bunzip2 > /usr/bin/authn
 chmod a+x /usr/bin/authn
 
