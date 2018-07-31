@@ -1,0 +1,12 @@
+#!/bin/sh
+
+add-apt-repository -y ppa:certbot/certbot
+apt-get update
+apt-get install -y python-certbot-nginx
+
+# NOTE: depends on opening 443 in the firewall
+certbot -n --agree-tos \
+  --nginx \
+  --redirect \
+  -m lance@keratin.tech \
+  -d demo.keratin.tech,authn.keratin.tech

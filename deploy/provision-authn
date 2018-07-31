@@ -1,0 +1,17 @@
+#!/bin/sh
+
+VERSION=$1
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+
+# download authn
+curl -L https://github.com/keratin/authn-server/releases/download/v$VERSION/authn-linux64.bz2 \
+  | bunzip2 > /usr/bin/authn
+chmod a+x /usr/bin/authn
+
+# run authn as daemon with systemd
+ln -s $SCRIPTPATH/authn.service /lib/systemd/system/authn.service
+systemctl enable authn.service
+systemctl start authn.service
+
+# add to nginx
+ln -s $SCRIPTPATH/authn.keratin.tech /etc/nginx/sites-enabled/authn.keratin.tech
