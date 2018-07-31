@@ -22,6 +22,9 @@ Keratin::AuthN.config.tap do |config|
   # client credentials
   config.username = ENV['HTTP_AUTH_USERNAME']
   config.password = ENV['HTTP_AUTH_PASSWORD']
+
+  # Private networking
+  config.authn_url = ENV['PRIVATE_AUTHN_URL']
 end
 
 MG = Mailgun::Client.new(ENV['MAILGUN_API_KEY'])

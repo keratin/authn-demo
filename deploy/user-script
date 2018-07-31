@@ -1,0 +1,23 @@
+# INSTRUCTIONS:
+# 1. copy+paste into launch script
+# 2. fill in the secrets
+# 3. launch
+# 4. add HTTPS/443 to firewall quickly before script proceeds to letsencrypt
+# 5. associate static ip for DNS
+
+# FILL IN THESE SECRETS
+export MAILGUN_API_KEY=
+export SENTRY_DSN=
+export GITHUB_OAUTH_CREDENTIALS=
+
+apt-get update
+apt-get install -y build-essential
+
+cd /home/ubuntu
+sudo -u ubuntu git clone https://github.com/keratin/authn-demo authn-demo
+cd authn-demo
+sudo -u ubuntu git checkout deploy
+
+./deploy/provision-demo
+./deploy/provision-authn 1.4.0
+./deploy/provision-letsencrypt
