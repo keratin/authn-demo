@@ -18,13 +18,7 @@
           </li>
         <% else %>
           <li class="nav-item">
-            <a class="btn btn-info" href="http://localhost:7001/oauth/google?redirect_uri=http://localhost:9292/register">Google</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-info" href="http://localhost:7001/oauth/github?redirect_uri=http://localhost:9292/register">GitHub</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-info" href="http://localhost:7001/oauth/facebook?redirect_uri=http://localhost:9292/register">Facebook</a>
+            <a class="btn btn-info" href="<%= Keratin::AuthN.config.issuer %>/oauth/github?redirect_uri=<%= url('/register') %>">GitHub</a>
           </li>
           <li class="nav-item">
             <a class="btn btn-success" href="/login">Log In</a>

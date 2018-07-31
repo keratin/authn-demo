@@ -22,6 +22,7 @@ echo MAILGUN_DOMAIN=mg.keratin.tech >> .env
 echo SENTRY_DSN=$SENTRY_DSN >> .env
 echo PROXIED=true >> .env
 echo PUBLIC_PORT=3001 >> .env
+echo GITHUB_OAUTH_CREDENTIALS=$GITHUB_OAUTH_CREDENTIALS >> .env
 
 # passenger + nginx
 apt-get install -y dirmngr gnupg

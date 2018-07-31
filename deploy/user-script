@@ -8,6 +8,7 @@
 # FILL IN THESE SECRETS
 export MAILGUN_API_KEY=
 export SENTRY_DSN=
+export GITHUB_OAUTH_CREDENTIALS=
 
 apt-get update
 apt-get install -y build-essential
