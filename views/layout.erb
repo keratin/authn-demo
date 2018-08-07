@@ -13,12 +13,11 @@
           <a class="nav-item nav-link" href="/account">Account Settings</a>
           <a class="nav-item nav-link" href="#" id="logout">Log Out</a>
         <% else %>
-          <a class="nav-item btn btn-secondary mx-2" href="<%= Keratin::AuthN.config.issuer %>/oauth/github?redirect_uri=<%= url('/register') %>">GitHub</a>
           <a class="nav-item btn btn-info" href="/login">Log In</a>
         <% end %>
       </div>
     </nav>
-    <div class="my-2">
+    <div class="my-4">
       <%= yield %>
     </div>
   </div>

@@ -1,13 +1,4 @@
 (function() {
-  document.querySelectorAll("*[data-toggle=collapse]")
-    .forEach(function (e) {
-      var target = document.querySelector(e.attributes.href.value);
-      e.addEventListener('click', function (event) {
-        e.classList.add('collapse');
-        target.classList.remove('collapse');
-      });
-    });
-
   /*
    * Integrate KeratinAuthN.signup
    */
@@ -91,17 +82,17 @@
   /*
    * Integrate KeratinAuthN.requestPasswordReset
    */
-  var resetButton = document.querySelector("#resetButton");
-  if (resetButton) {
-    var username = document.querySelector("#user_email");
+  var forgotForm = document.querySelector("form#forgot");
+  if (forgotForm) {
+    var username = forgotForm.querySelector("input#user_email");
 
-    resetButton.addEventListener('click', function (event) {
+    forgotForm.addEventListener('submit', function (event) {
       event.preventDefault();
 
       KeratinAuthN
         .requestPasswordReset(username.value)
         .then(function () {
-          window.alert('If this account exists, an email has been sent with instructions to reset your password.');
+          window.alert('An email has been sent to ' + username.value + ' with instructions to reset your password.');
         });
     });
   }

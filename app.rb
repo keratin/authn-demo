@@ -69,6 +69,10 @@ get '/login' do
   erb :login
 end
 
+get '/login/forgot' do
+  erb :forgotten_password
+end
+
 get '/signup' do
   if incomplete_signup?
     account = Keratin.authn.get(current_account_id).result

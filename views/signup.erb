@@ -1,27 +1,32 @@
-<h2>Sign Up</h2>
+<div class="row">
+  <form id="signup" method="post" action="/signup" class="col-sm-4 mx-auto <%= 'incomplete' if incomplete_signup? %>">
+    <h2 class="mb-0">Create an Account</h2>
+    <p><small>or <a href="/login">sign in to your account</a></small></p>
 
-<form id="signup" method="post" action="/signup" class="<%= 'incomplete' if incomplete_signup? %>">
-
-  <!-- Name -->
-  <div class="form-group <%= 'has-danger' if @errors && @errors.include?(:name) %>">
-    <label for="user_name" class="form-control-label">Name</label>
-    <input type="text" value="<%= @name %>" id="user_name" name="user[name]" class="form-control" />
-  </div>
-
-  <!-- Email (Username) -->
-  <div class="form-group <%= 'has-danger' if @errors && @errors.include?(:email) %>">
-    <label for="user_email" class="form-control-label">Email</label>
-    <input type="email" value="<%= @email %>" id="user_email" name="user[email]" class="form-control" />
-  </div>
-
-  <!-- Password -->
-  <% if !incomplete_signup? %>
-    <div class="form-group">
-      <label for="user_password" class="form-control-label">Password</label>
-      <input type="password" id="user_password" class="form-control" />
+    <!-- Name -->
+    <div class="form-group <%= 'has-danger' if @errors && @errors.include?(:name) %>">
+      <label for="user_name">Name</label>
+      <input type="text" value="<%= @name %>" id="user_name" name="user[name]" class="form-control" />
     </div>
-  <% end %>
 
-  <button type="submit" class="btn btn-primary">Sign Up</button>
+    <!-- Email (Username) -->
+    <div class="form-group <%= 'has-danger' if @errors && @errors.include?(:email) %>">
+      <label for="user_email">Email</label>
+      <input type="email" value="<%= @email %>" id="user_email" name="user[email]" class="form-control" />
+    </div>
 
-</form>
+    <!-- Password -->
+    <% if !incomplete_signup? %>
+      <div class="form-group">
+        <label for="user_password">Password</label>
+        <input type="password" id="user_password" class="form-control" />
+      </div>
+    <% end %>
+
+    <div class="form-group"><button type="submit" class="btn btn-primary w-100">Sign Up</button></div>
+    <% if !incomplete_signup? %>
+      <div class="form-group"><a class="btn btn-secondary w-100" href="<%= Keratin::AuthN.config.issuer %>/oauth/github?redirect_uri=<%= url('/register') %>">Connect with GitHub</a></div>
+    <% end %>
+
+  </form>
+</div>
