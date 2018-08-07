@@ -1,12 +1,13 @@
-<h2>Reset Password</h2>
+<div class="row">
+  <form id="reset" class="col-sm-4 mx-auto">
+    <h2>Reset Password</h2>
+    <input type="hidden" id="reset_token" value="<%= @token %>" />
 
-<form id="reset">
-  <input type="hidden" id="reset_token" value="<%= @token %>" />
+    <div class="form-group">
+      <label for="user_password">New Password</label>
+      <input type="password" id="user_password" class="form-control" />
+    </div>
 
-  <div class="form-group">
-    <label for="user_password">New Password</label>
-    <input type="password" id="user_password" class="form-control" />
-  </div>
-
-  <button type="submit" class="btn btn-primary">Reset</button>
-</form>
+    <div class="form-group"><button type="submit" class="btn btn-primary w-100">Reset</button></div>
+  </form>
+</div>

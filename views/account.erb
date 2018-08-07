@@ -1,15 +1,19 @@
-<h2><%= current_user.name %>'s Account</h2>
+<div class="row">
+  <form id="changePassword" class="col-sm-4 mx-auto">
+    <h2>My Account</h2>
 
-<form id="changePassword">
-  <div class="form-group">
-    <label for="current_password">Current Password</label>
-    <input type="password" id="current_password" class="form-control" />
-  </div>
+    <p><%= current_user.name %></p>
 
-  <div class="form-group">
-    <label for="new_password">New Password</label>
-    <input type="password" id="new_password" class="form-control" />
-  </div>
+    <div class="form-group">
+      <label for="current_password">Current Password</label>
+      <input type="password" id="current_password" class="form-control" />
+    </div>
 
-  <button type="submit" class="btn btn-primary">Change</button>
-</form>
+    <div class="form-group">
+      <label for="new_password">New Password</label>
+      <input type="password" id="new_password" class="form-control" />
+    </div>
+
+    <div class="form-group"><button type="submit" class="btn btn-primary w-100">Change</button></div>
+  </form>
+</div>
